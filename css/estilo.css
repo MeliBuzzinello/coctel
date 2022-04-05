@@ -1,0 +1,115 @@
+* {
+    padding: 0px;
+    margin: 0px;
+   
+}
+
+/*------------- HEADER -------------*/
+
+.logo {
+    height: auto;
+    width: 60%;
+}
+
+.contLogo {
+    display: flex;
+    justify-content: center;
+}
+
+/* --------------- FOOTER----------- */
+
+.legales {
+    background-color: #D1E9A3;
+    width: 100%;
+}
+
+.textLegales {
+    text-align: center;
+    padding-top: 12px;
+    font-size: 12px
+}
+
+.row {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.footerTitulo {
+    font-size: 20px;
+}
+
+.footerTexto {
+   font-size: 15px;
+}
+
+.footerContenedor {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+
+}
+
+/*------- CARD--------- */
+
+.cardCont {
+    margin: 15px;
+}
+
+.card {
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+}
+
+.card-img-top {
+    width: 50%;
+}
+
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0; 
+    }
+
+    #container{
+    opacity:.3;
+    }
+
+    .emergente{
+        width:400px;
+        height:200px;
+        position:fixed;
+        background-color:#FFFAFA;
+        top:50%;
+        left:50%;
+        margin-left:-200px;
+        margin-top:-100px;
+        border:1px solid #000;
+        border-radius:10px;
+        padding:20px;
+        text-align:center;
+        box-shadow: 10px 10px 10px #ccc;
+        z-index: 9999;
+    }
+
+    .emergente p{
+        font-size:24px;
+    }
+
+    .emergente .boton{
+        font-size:18px;
+        padding:10px;
+        border:1px solid #000;
+        border-radius:5px;
+        display:inline-block;
+        width:150px;
+        margin-top:32px;
+        box-shadow:5px 5px 5px #ccc;
+    }
+    .menor{background-color:#FAF0E6;}
+    .mayor{background-color:#F5F5DC;}
+    .menor:hover{background-color:#ff0000;}
+    .mayor:hover{background-color:#00ff00;}
