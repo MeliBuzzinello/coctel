@@ -8,12 +8,11 @@
 
 .logo {
     height: auto;
-    width: 60%;
+    width: 40%;
 }
 
 .contLogo {
     display: flex;
-    justify-content: center;
 }
 
 /* --------------- FOOTER----------- */
@@ -113,3 +112,7 @@
     .mayor{background-color:#F5F5DC;}
     .menor:hover{background-color:#ff0000;}
     .mayor:hover{background-color:#00ff00;}
+
+    /* --------------------------- */ 
+
+    

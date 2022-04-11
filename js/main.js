@@ -1,31 +1,31 @@
-// Mi trabajo final, es una tienda e-commerce de venta de bebidas alcoholicas.
-// En este desafio de simulacro, genere un algoritmo de carga de stock por parte del usuario (dueño de la tienda). 
-// Al ingresar a la pagina, una ventana verifica si es mayor de edad o no. Esta funcion es para una siguiente etapa, 
-//en la que se diferencie el usuario (cliente y dueño). 
+// Desafio arrays: en esta etapa, implemente dentro del boton iniciar sesion, la opcion de agregar stock al Array.
+// En el input buscar, se puede buscar por tipo de bebida.
+// y 3 opciones que va a ordenar los productos por precio, y por lista.
 
 
 // ---------- VARIABLES --------------
-
-let bebida = '';
+let bebida = {};
+let id = '';
 let tipo = '';
 let marca = '';
 let cantidad = 0;
 let precioMayorista = 0;
 let detalle = '';
 let ingreso = false;
-
+let txtBuscar = document.getElementById('txtBuscar');
+let btnBuscar = document.getElementById('btnBuscar');
+let sesion = document.getElementById('sesion');
+let navprecioMayor = document.getElementById('navprecioMayor');
+let navprecioMenor = document.getElementById('navprecioMenor');
+let navlistaprecios = document.getElementById('navlistaprecios');
 
 // ------------- FUNCIONES ------------
 
-const ingresoCarga = () => {
-    while (confirm('Agregar stock de producto')) {
-        cargarStock();
-        alert(`${bebida} 
-        El precio consumidor final es $ ${precioUsuario(precioMayorista)}`)
-    }
-}
-
 function cargarStock() {
+    id = prompt('Ingrese el ID del producto');
+    while (id == null || id.trim() == '') {
+        id = prompt('ERROR: campo vacio. Ingrese el tipo de bebida');
+    }
     tipo = prompt('Ingrese el tipo de bebida');
     while (tipo == null || tipo.trim() == '') {
         tipo = prompt('ERROR: campo vacio. Ingrese el tipo de bebida');
@@ -47,35 +47,54 @@ function cargarStock() {
         detalle = prompt('ERROR: campo vacio. Ingrese detalle del producto');
     }
 
-    bebida = `Tipo: ${tipo}
-    marca: ${marca}
-    stock ${cantidad}
-    precio matorista : $ ${precioMayorista}
-    detalle: ${detalle}`;
-
+    bebida = new Producto(id, tipo, marca, cantidad, precioMayorista, detalle);
+    listaProductos.push(bebida);
+    console.log(listaProductos);
     return bebida;
 }
-
-const precioUsuario = (precioMayorista) => {
-    let precio = precioMayorista + (precioMayorista * 0.6);
-    return precio;
-}
-
 
 // ----------- CODIGO EJECUTABLE ----------   
 
 window.onload = init;
-    function init(){
-        document.querySelector(".emergente .menor").addEventListener("click",adios);
-        document.querySelector(".emergente .mayor").addEventListener("click",hola);
-    }
-    function adios(){
-        location.href= "assets/video/conductor.mp4";
-    }    
-    function hola(){
-        document.querySelector(".emergente").style.display="none";
-        setTimeout(ingresoCarga, 1000);
-    }
-    
+function init() {
+    document.querySelector(".emergente .menor").addEventListener("click", adios);
+    document.querySelector(".emergente .mayor").addEventListener("click", hola);
+}
+function adios() {
+    location.href = "assets/video/conductor.mp4";
+}
+function hola() {
+    document.querySelector(".emergente").style.display = "none";
+}
 
+// ------------- EVENTOS --------------
+
+btnBuscar.addEventListener('click', () => {
+    let busqueda = listaProductos.filter(el => el.tipo.includes(txtBuscar.value));
+    console.log(busqueda);
+});
+
+sesion.addEventListener('click', () => {
+    while (confirm('Agregar stock de producto')) {
+        cargarStock();
+        alert(`${bebida.id}: ${bebida.tipo}
+            El precio consumidor final es $ ${bebida.precioPublico()}`)
+    }
+});
+
+navlistaprecios.addEventListener('click', () => {
+    for (const producto of listaProductos) {
+        alert(`El precio al publico del producto: ${producto.tipo} marca: ${producto.marca}, ${producto.descripcion} es $${producto.precioPublico()}`);
+    };
+});
+
+navprecioMayor.addEventListener('click', () => {
+    let precioMay = listaProductos.sort((a, b) => b.precioPublico() - a.precioPublico());
+    console.log(precioMay);
+});
+
+navprecioMenor.addEventListener('click', () => {
+    let precioMen = listaProductos.sort((a, b) => a.precioPublico() - b.precioPublico());
+    console.log(precioMen);
+});
 
