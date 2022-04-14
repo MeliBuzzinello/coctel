@@ -1,100 +1,145 @@
-// Desafio arrays: en esta etapa, implemente dentro del boton iniciar sesion, la opcion de agregar stock al Array.
-// En el input buscar, se puede buscar por tipo de bebida.
-// y 3 opciones que va a ordenar los productos por precio, y por lista.
 
+// Primera entrega del Proyecto Final: en esta etapa, agregamos las funciones de carrito de compra, y de mostrar los productos 
+// de acurdo a lo seleccoinado por usuario (precio, busqueda). Se agrego form para inicio de sesion. 
 
 // ---------- VARIABLES --------------
-let bebida = {};
-let id = '';
-let tipo = '';
-let marca = '';
-let cantidad = 0;
-let precioMayorista = 0;
-let detalle = '';
-let ingreso = false;
 let txtBuscar = document.getElementById('txtBuscar');
 let btnBuscar = document.getElementById('btnBuscar');
 let sesion = document.getElementById('sesion');
 let navprecioMayor = document.getElementById('navprecioMayor');
 let navprecioMenor = document.getElementById('navprecioMenor');
 let navlistaprecios = document.getElementById('navlistaprecios');
+let contPopUp = document.getElementById('contPopUp');
+let divContSesion = document.getElementById('divContSesion');
 
 // ------------- FUNCIONES ------------
 
 function cargarStock() {
-    id = prompt('Ingrese el ID del producto');
+    let id = prompt('Ingrese el ID del producto');
     while (id == null || id.trim() == '') {
         id = prompt('ERROR: campo vacio. Ingrese el tipo de bebida');
     }
-    tipo = prompt('Ingrese el tipo de bebida');
+    let tipo = prompt('Ingrese el tipo de bebida');
     while (tipo == null || tipo.trim() == '') {
         tipo = prompt('ERROR: campo vacio. Ingrese el tipo de bebida');
     }
-    marca = prompt('Ingrese la marca');
+    let marca = prompt('Ingrese la marca');
     while (marca == null || marca.trim() == '') {
         marca = prompt('ERROR: campo vacio. Ingrese la marca');
     }
-    cantidad = parseInt(prompt('Ingrese la cantidad de stock'));
+    let cantidad = parseInt(prompt('Ingrese la cantidad de stock'));
     while (isNaN(cantidad) || cantidad == null || cantidad.trim == 0) {
         cantidad = prompt('ERROR: Ingrese la cantidad correcta');
     }
-    precioMayorista = parseFloat(prompt('Ingrese precio mayorista'));
+    let precioMayorista = parseFloat(prompt('Ingrese precio mayorista'));
     while (isNaN(precioMayorista) || precioMayorista == null || precioMayorista.trim == 0) {
         precioMayorista = prompt('ERROR: Ingrese la cantidad correcta');
     }
-    detalle = prompt('Ingrese detalle de la misma');
+    let detalle = prompt('Ingrese detalle de la misma');
     while (detalle == null || detalle.trim() == '') {
         detalle = prompt('ERROR: campo vacio. Ingrese detalle del producto');
     }
 
-    bebida = new Producto(id, tipo, marca, cantidad, precioMayorista, detalle);
+    let bebida = new Producto(id, tipo, marca, cantidad, precioMayorista, detalle);
     listaProductos.push(bebida);
     console.log(listaProductos);
     return bebida;
 }
 
-// ----------- CODIGO EJECUTABLE ----------   
+function mostrarProductos(array) {
+    document.querySelector('.cardCont').innerHTML = '';
+    for (const producto of array) {
+        let cardCont = document.createElement('div');
+        cardCont.innerHTML = `<img src="assets/img/WhiskyChivasExtra13_1000x1200.webp" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">${producto.tipo}</h5>
+            <h5 class="card-title">${producto.marca}</h5>
+            <p class="card-text">${producto.descripcion}</p>
+            <h3 class="card-title">$${producto.precioPublico()}</h3>
+            <a class="btn btn-primary" id="btnAgregar${producto.id}">COMPRAR</a>
+        </div>
+    </div>`;
+        cardCont.className = 'card col-lg-4 col-md-6 col-xs-12';
+        document.querySelector('.cardCont').append(cardCont);
 
-window.onload = init;
+        let btnAgregar = document.getElementById(`btnAgregar${producto.id}`)
+        // console.log(btnAgregar)
+        btnAgregar.addEventListener('click',()=>{
+            agregarAlCarrito(producto.id)
+        })
+    };
+}
+
+function agregarAlCarrito(id) {
+    const carrito = [];
+        let productoAgregar = listaProductos.find(elemento => elemento.id == id)
+        console.log(productoAgregar);
+        carrito.push(productoAgregar);
+        console.log(carrito);
+} 
+
+// ----------- CODIGO POP UP MAYOR DE EDAD ----------   
+
+function popUps() {
+    contPopUp.className = 'show';
+    init();
+}
+setTimeout(popUps, 1000);
+
 function init() {
-    document.querySelector(".emergente .menor").addEventListener("click", adios);
-    document.querySelector(".emergente .mayor").addEventListener("click", hola);
+    document.querySelector(".popUp .menor").addEventListener("click", adios);
+    document.querySelector(".popUp .mayor").addEventListener("click", hola);
 }
 function adios() {
     location.href = "assets/video/conductor.mp4";
 }
 function hola() {
-    document.querySelector(".emergente").style.display = "none";
+    contPopUp.removeAttribute('class', 'show');
 }
 
 // ------------- EVENTOS --------------
 
-btnBuscar.addEventListener('click', () => {
-    let busqueda = listaProductos.filter(el => el.tipo.includes(txtBuscar.value));
-    console.log(busqueda);
-});
-
 sesion.addEventListener('click', () => {
-    while (confirm('Agregar stock de producto')) {
+    let divSesion = document.createElement('div');
+    divSesion.innerHTML = `<div class="contS">
+    <div class="contForm">
+        <form action="" class="formSesion">
+            <i class="far fa-times-circle" id="close"></i>
+            <h4>Ingrese usuario y contraseña</h4>
+            <input type="text" class="txtusuario" placeholder="USUARIO">
+            <input type="text" class="txtclave" placeholder="CONTRASEÑA">
+            <button class="btnEnviar" id="btnEnviar">Enviar</button>
+        </form>
+    </div>
+</div>`;
+    divContSesion.appendChild(divSesion);
+    let btnEnviar = document.getElementById('btnEnviar');
+
+    btnEnviar.addEventListener('click', () => {
         cargarStock();
-        alert(`${bebida.id}: ${bebida.tipo}
-            El precio consumidor final es $ ${bebida.precioPublico()}`)
-    }
+    });
+
+    document.querySelector('#close').addEventListener('click', () => {
+        divContSesion.innerHTML = '';
+    });
 });
 
 navlistaprecios.addEventListener('click', () => {
-    for (const producto of listaProductos) {
-        alert(`El precio al publico del producto: ${producto.tipo} marca: ${producto.marca}, ${producto.descripcion} es $${producto.precioPublico()}`);
-    };
+    mostrarProductos(listaProductos);
 });
 
 navprecioMayor.addEventListener('click', () => {
     let precioMay = listaProductos.sort((a, b) => b.precioPublico() - a.precioPublico());
-    console.log(precioMay);
+    mostrarProductos(precioMay);
 });
 
 navprecioMenor.addEventListener('click', () => {
     let precioMen = listaProductos.sort((a, b) => a.precioPublico() - b.precioPublico());
-    console.log(precioMen);
+    mostrarProductos(precioMen);
+});
+
+btnBuscar.addEventListener('click', () => {
+    let busqueda = listaProductos.filter(el => el.tipo.includes(txtBuscar.value));
+    mostrarProductos(busqueda);
 });
 

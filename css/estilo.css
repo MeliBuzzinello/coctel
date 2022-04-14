@@ -1,7 +1,8 @@
 * {
     padding: 0px;
     margin: 0px;
-   
+    box-sizing: border-box;
+    font-family: 'Raleway';
 }
 
 /*------------- HEADER -------------*/
@@ -16,6 +17,10 @@
 }
 
 /* --------------- FOOTER----------- */
+
+footer {
+    bottom: 0;
+}
 
 .legales {
     background-color: #D1E9A3;
@@ -38,7 +43,7 @@
 }
 
 .footerTexto {
-   font-size: 15px;
+    font-size: 15px;
 }
 
 .footerContenedor {
@@ -52,67 +57,195 @@
 /*------- CARD--------- */
 
 .cardCont {
-    margin: 15px;
+    margin: 30px;
+    justify-content: center;
 }
 
 .card {
     display: flex;
     align-items: center;
     text-align: center;
-
 }
 
 .card-img-top {
     width: 50%;
 }
 
+/*-------------- VENTANA EMERGENTE----------*/
 
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0; 
-    }
+#contPopUp {
+    z-index: 9999;
+    background: rgba(48, 48, 48, 0.5);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+}
 
-    #container{
-    opacity:.3;
-    }
+.popUp {
+    display: flex;
+    align-items: center;
+    width: 60%;
+    max-width: 950px;
+}
 
-    .emergente{
-        width:400px;
-        height:200px;
-        position:fixed;
-        background-color:#FFFAFA;
-        top:50%;
-        left:50%;
-        margin-left:-200px;
-        margin-top:-100px;
-        border:1px solid #000;
-        border-radius:10px;
-        padding:20px;
-        text-align:center;
-        box-shadow: 10px 10px 10px #ccc;
-        z-index: 9999;
-    }
+.popValidarEdad::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.3);
+    z-index: -1;
+}
 
-    .emergente p{
-        font-size:24px;
-    }
+.popValidarEdad{
+    background: #fff;
+    flex-basis: 0;
+    flex-grow: 2;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    text-align: center;
+   
+}
 
-    .emergente .boton{
-        font-size:18px;
-        padding:10px;
-        border:1px solid #000;
-        border-radius:5px;
-        display:inline-block;
-        width:150px;
-        margin-top:32px;
-        box-shadow:5px 5px 5px #ccc;
-    }
-    .menor{background-color:#FAF0E6;}
-    .mayor{background-color:#F5F5DC;}
-    .menor:hover{background-color:#ff0000;}
-    .mayor:hover{background-color:#00ff00;}
+.popValidarEdad h3 {
+    font-weight: 500;
+    font-size: 20px;
+    color: #1F4068;
+    margin-bottom: 0px;
+    margin-top: 22px;
+    width: 80%;
 
-    /* --------------------------- */ 
+}
 
-    
+.popValidarEdad p {
+    font-size: 15px;
+}
+
+.popValidarEdad button {
+    width: 80%;
+    padding: 15px;
+    border: none;
+    background: #ccc;
+    border-radius: 0px;
+}
+
+.menor {
+    background-color: #FAF0E6;
+}
+
+.mayor {
+    background-color: #F5F5DC;
+}
+
+.menor:hover {
+    background-color: #FAD8CE;
+}
+
+.mayor:hover {
+    background-color: #D1E9A3;
+}
+
+#contPopUp.show{
+    visibility: visible;
+}
+
+/* ----------- INICIO SESION ---------------- */
+
+.contS {
+    z-index: 9999;
+    background: rgba(48, 48, 48, 0.5);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contForm {
+    display: flex;
+    align-items: center;
+    width: 60%;
+    max-width: 950px;
+}
+
+#close{
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    font-size: 25px;
+    color: #1bc59b;
+    cursor: pointer;
+}
+
+
+.formSesion::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.3);
+    z-index: -1;
+}
+
+.formSesion {
+    background: #fff;
+    flex-basis: 0;
+    flex-grow: 2;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    text-align: center;
+   
+}
+
+.formSesion h4 {
+    font-weight: 500;
+    font-size: 20px;
+    color: #1F4068;
+    margin-bottom: 0px;
+    margin-top: 34px;
+    width: 80%;
+
+}
+
+.formSesion input {
+    width: 80%;
+    padding: 15px;
+    border: none;
+    background: #ccc;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.formSesion button {
+    width: 80%;
+    padding: 15px;
+    border: none;
+    background: #FAD8CE;
+    border-radius: 0px;
+    margin-bottom: 20px;
+}
+
+.btnEnviar:hover {
+    background-color: #D1E9A3;
+}

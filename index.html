@@ -7,13 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coctel++</title>
 
-    <script src=" https://unpkg.com/sweetalert/dist/sweetalert.min.js "> </script>
+ 
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,500;1,400;1,500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
         integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
     <link rel="stylesheet" href="css/estilo.css">
 </head>
 
-<body class="conteiner-fluid">
+<body class="conteiner-fluid" id="body">
     <header>
         <!-- <div class="col-lg-4 col-xs-12 contLogo">
             <img class="logo" src="assets/img/logo.png" alt="logo">
@@ -50,20 +51,28 @@
                     </li>
                 </ul>
                 <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" id="txtBuscar" type="search" placeholder="Ej: ron" aria-label="Search">
+                    <input class="form-control mr-sm-2" id="txtBuscar" type="search" placeholder="Ej: ron"
+                        aria-label="Search">
                     <button class="btn btn-outline-success my-2 my-sm-0" id="btnBuscar" type="submit">Buscar</button>
                 </form>
             </div>
         </nav>
         <!-- </div> -->
-
-        <div class="emergente">
-            <p>Debes ser mayor de edad para poder visitar este sitio web</p>
-            <div class="boton menor">Tengo menos de 18 años</div>
-            <div class="boton mayor">Soy mayor de edad</div>
+        <div id="contPopUp">
+            <div class="popUp" id="popUp">
+            <div class="popValidarEdad">
+                <h3>Prohibida la venta de bebidas alcohólicas a menores de 18 años</h3>
+                <button class="btn mayor" id="mayor" type="button">SOY MAYOR DE EDAD</button>
+                <button class="btn menor" id="menor" type="button">SOY MENOR DE EDAD</button>
+                <p>Ley Nacional de Lucha contra el alcoholismo- Nº 24.788</p>
+            </div>
+        </div>
+        </div>
+        <div id="divContSesion">
+            </div>
         </div>
     </header>
-    <main class="row contPrincipal">
+    <main class="row">
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
                 <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -93,56 +102,9 @@
             </button>
         </div>
         <div class="row cardCont">
-            <div class="card col-lg-4 col-xs-12" style="width: 18rem;">
-                <img src="assets/img/absolut-vodka-raspberri_1000x1200.webp" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">VODKA</h5>
-                    <p class="card-text">ABSOLUT VODKA RASPBERRI 750ML</p>
-                    <a href="#" class="btn btn-primary">COMPRAR</a>
-                </div>
-            </div>
-            <div class="card col-lg-4 col-xs-12" style="width: 18rem;">
-                <img src="assets/img/Absolut_Mandrin_1000_x_2048_1000x1200.webp" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">VODKA</h5>
-                    <p class="card-text">ABSOLUT VODKA MANDARIN 750ML</p>
-                    <a href="#" class="btn btn-primary">COMPRAR</a>
-                </div>
-            </div>
-            <div class="card col-lg-4 col-xs-12" style="width: 18rem;">
-                <img src="assets/img/GinBrighton_1000x1200.webp" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">GIN</h5>
-                    <p class="card-text">GIN BRIGHTON 700ML</p>
-                    <a href="#" class="btn btn-primary">COMPRAR</a>
-                </div>
-            </div>
-            <div class="card col-lg-4 col-xs-12" style="width: 18rem;">
-                <img src="assets/img/ron-havana-club-anejo-3-anos_1000x1200.webp" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">RON</h5>
-                    <p class="card-text">RON HAVANA CLUB AÑEJO 3 AÑOS</p>
-                    <a href="#" class="btn btn-primary">COMPRAR</a>
-                </div>
-            </div>
-            <div class="card col-lg-4 col-xs-12" style="width: 18rem;">
-                <img src="assets/img/RonHavanaClub7_1000x1200.webp" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">RON</h5>
-                    <p class="card-text">RON HAVANA CLUB 7 AÑOS</p>
-                    <a href="#" class="btn btn-primary">COMPRAR</a>
-                </div>
-            </div>
-            <div class="card col-lg-4 col-xs-12" style="width: 18rem;">
-                <img src="assets/img/WhiskyChivasExtra13_1000x1200.webp" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">WHISKY</h5>
-                    <p class="card-text">WHISKY CHIVAS EXTRA 13</p>
-                    <a href="#" class="btn btn-primary">COMPRAR</a>
-                </div>
-            </div>
 
         </div>
+
     </main>
     <footer class="row">
         <div class="col-lg-6 col-xs-12 footerContenedor">
@@ -165,9 +127,9 @@
                 <h4 class="textLegales">Copyright 2022 © Desarrollado por Melisa Buzzinello</h4>
             </div>
         </div>
-
     </footer>
 
+    <script src="https://kit.fontawesome.com/cd33816f91.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
