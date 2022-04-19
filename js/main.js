@@ -1,6 +1,4 @@
 
-// Primera entrega del Proyecto Final: en esta etapa, agregamos las funciones de carrito de compra, y de mostrar los productos 
-// de acurdo a lo seleccoinado por usuario (precio, busqueda). Se agrego form para inicio de sesion. 
 
 // ---------- VARIABLES --------------
 let txtBuscar = document.getElementById('txtBuscar');
