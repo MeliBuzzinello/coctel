@@ -249,3 +249,58 @@ footer {
 .btnEnviar:hover {
     background-color: #D1E9A3;
 }
+
+/* ----------- CARRITO ---------------- */
+
+.contCarrito::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.3);
+    z-index: -1;
+}
+
+.contCarrito {
+    background: #fff;
+    flex-basis: 0;
+    flex-grow: 2;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    text-align: center;
+   
+}
+
+.contCarrito h4 {
+    font-weight: 500;
+    font-size: 20px;
+    color: #1F4068;
+    margin-bottom: 0px;
+    margin-top: 34px;
+    width: 80%;
+
+}
+
+.contCarrito input {
+    width: 80%;
+    padding: 15px;
+    border: none;
+    background: #ccc;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.contCarrito button {
+    width: 80%;
+    padding: 15px;
+    border: none;
+    background: #FAD8CE;
+    border-radius: 0px;
+    margin-bottom: 20px;
+}

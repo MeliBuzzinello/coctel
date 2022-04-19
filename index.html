@@ -7,8 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coctel++</title>
 
- 
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,500;1,400;1,500&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,500;1,400;1,500&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
         integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
     <link rel="stylesheet" href="css/estilo.css">
@@ -16,17 +17,12 @@
 
 <body class="conteiner-fluid" id="body">
     <header>
-        <!-- <div class="col-lg-4 col-xs-12 contLogo">
-            <img class="logo" src="assets/img/logo.png" alt="logo">
-        </div> -->
-        <!-- <div class="col-lg-8 col-xs-12"> -->
         <nav class="navbar navbar-expand-lg navbar-light bg-light ">
             <a class="contLogo navbar-brand" href="#"><img class="logo" src="assets/img/logo.png" alt="logo"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
@@ -46,30 +42,33 @@
                             <a class="dropdown-item" id="navlistaprecios" href="#">Lista de precios</a>
                         </div>
                     </li>
+                    <form class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2" id="txtBuscar" type="search" placeholder="Ej: ron"
+                            aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" id="btnBuscar"
+                            type="submit">Buscar</button>
+                    </form>
                     <li class="nav-item">
                         <a class="nav-link" id="sesion" href="#">Iniciar sesion</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="carrito" href="#">Mostrar carrito</a>
+                    </li>
                 </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" id="txtBuscar" type="search" placeholder="Ej: ron"
-                        aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" id="btnBuscar" type="submit">Buscar</button>
-                </form>
             </div>
         </nav>
-        <!-- </div> -->
         <div id="contPopUp">
             <div class="popUp" id="popUp">
-            <div class="popValidarEdad">
-                <h3>Prohibida la venta de bebidas alcohólicas a menores de 18 años</h3>
-                <button class="btn mayor" id="mayor" type="button">SOY MAYOR DE EDAD</button>
-                <button class="btn menor" id="menor" type="button">SOY MENOR DE EDAD</button>
-                <p>Ley Nacional de Lucha contra el alcoholismo- Nº 24.788</p>
+                <div class="popValidarEdad">
+                    <h3>Prohibida la venta de bebidas alcohólicas a menores de 18 años</h3>
+                    <button class="btn mayor" id="mayor" type="button">SOY MAYOR DE EDAD</button>
+                    <button class="btn menor" id="menor" type="button">SOY MENOR DE EDAD</button>
+                    <p>Ley Nacional de Lucha contra el alcoholismo- Nº 24.788</p>
+                </div>
             </div>
-        </div>
         </div>
         <div id="divContSesion">
-            </div>
+        </div>
         </div>
     </header>
     <main class="row">

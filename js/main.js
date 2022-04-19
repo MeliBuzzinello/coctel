@@ -11,6 +11,9 @@ let navprecioMenor = document.getElementById('navprecioMenor');
 let navlistaprecios = document.getElementById('navlistaprecios');
 let contPopUp = document.getElementById('contPopUp');
 let divContSesion = document.getElementById('divContSesion');
+let carrito = document.getElementById('carrito');
+
+const carritoProductos = [];
 
 // ------------- FUNCIONES ------------
 
@@ -64,19 +67,18 @@ function mostrarProductos(array) {
 
         let btnAgregar = document.getElementById(`btnAgregar${producto.id}`)
         // console.log(btnAgregar)
-        btnAgregar.addEventListener('click',()=>{
+        btnAgregar.addEventListener('click', () => {
             agregarAlCarrito(producto.id)
         })
     };
 }
 
 function agregarAlCarrito(id) {
-    const carrito = [];
-        let productoAgregar = listaProductos.find(elemento => elemento.id == id)
-        console.log(productoAgregar);
-        carrito.push(productoAgregar);
-        console.log(carrito);
-} 
+    let productoAgregar = listaProductos.find(elemento => elemento.id == id)
+    carritoProductos.push(productoAgregar);
+    console.log(carritoProductos);
+    return carritoProductos;
+}
 
 // ----------- CODIGO POP UP MAYOR DE EDAD ----------   
 
@@ -103,11 +105,11 @@ sesion.addEventListener('click', () => {
     let divSesion = document.createElement('div');
     divSesion.innerHTML = `<div class="contS">
     <div class="contForm">
-        <form action="" class="formSesion">
+        <form action="" class="formSesion" id="formulario">
             <i class="far fa-times-circle" id="close"></i>
             <h4>Ingrese usuario y contraseña</h4>
             <input type="text" class="txtusuario" placeholder="USUARIO">
-            <input type="text" class="txtclave" placeholder="CONTRASEÑA">
+            <input type="password" class="txtclave" placeholder="CONTRASEÑA">
             <button class="btnEnviar" id="btnEnviar">Enviar</button>
         </form>
     </div>
@@ -115,8 +117,20 @@ sesion.addEventListener('click', () => {
     divContSesion.appendChild(divSesion);
     let btnEnviar = document.getElementById('btnEnviar');
 
-    btnEnviar.addEventListener('click', () => {
-        cargarStock();
+    btnEnviar.addEventListener('click', (e) => {
+        e.preventDefault();
+        let usuarioIngresado = document.querySelector('.txtusuario').value;
+        let claveIngresado = document.querySelector('.txtclave').value;
+        let usuario = 'admin';
+        let clave = 'admin123';
+        if(usuarioIngresado == usuario && claveIngresado == clave){
+            divContSesion.innerHTML = '';
+            cargarStock();
+        }
+        else {
+            alert('Datos incorrectos');
+            formulario.reset();
+    }
     });
 
     document.querySelector('#close').addEventListener('click', () => {
@@ -141,5 +155,24 @@ navprecioMenor.addEventListener('click', () => {
 btnBuscar.addEventListener('click', () => {
     let busqueda = listaProductos.filter(el => el.tipo.includes(txtBuscar.value));
     mostrarProductos(busqueda);
+});
+
+carrito.addEventListener('click',()=>{
+    console.log(carritoProductos);
+    let divcarrito = document.createElement('div');
+    divcarrito.innerHTML = `<div class="contS">
+    <div class="contForm">
+        <div class="contCarrito" >
+            <i class="far fa-times-circle" id="close"></i>
+            <h4>Productos agregados en el carrito</h4>
+        </div>
+    </div>
+</div>`;
+divContSesion.appendChild(divcarrito);
+
+    
+    document.querySelector('#close').addEventListener('click', () => {
+        divContSesion.innerHTML = '';
+    });
 });
 
