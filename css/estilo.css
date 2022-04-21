@@ -16,6 +16,10 @@
     display: flex;
 }
 
+.imgNav {
+   width: 35px;
+}
+
 /* --------------- FOOTER----------- */
 
 footer {

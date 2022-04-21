@@ -150,7 +150,7 @@ navprecioMenor.addEventListener('click', () => {
     mostrarProductos(precioMen);
 });
 
-btnBuscar.addEventListener('click', () => {
+txtBuscar.addEventListener('input', () => {
     let busqueda = listaProductos.filter(el => el.tipo.includes(txtBuscar.value));
     mostrarProductos(busqueda);
 });
@@ -174,3 +174,16 @@ divContSesion.appendChild(divcarrito);
     });
 });
 
+carrito.addEventListener('mouseover',()=>{
+    carrito.innerHTML =  "<h6>Mostrar carrito</h6>";
+});
+carrito.addEventListener('mouseout',()=>{
+    carrito.innerHTML = `<img class="imgNav" src="assets/img/carrito-de-compras.png" alt=""></img>`;
+});
+
+sesion.addEventListener('mouseover',()=>{
+    sesion.innerHTML ="<h6>Iniciar sesion</h6>";
+});
+sesion.addEventListener('mouseout',()=>{
+    sesion.innerHTML = `<img class="imgNav" src="assets/img/usuario.png" alt=""></img>`;
+});
