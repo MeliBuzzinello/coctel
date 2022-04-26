@@ -51,7 +51,7 @@ function mostrarProductos(array) {
     document.querySelector('.cardCont').innerHTML = '';
     for (const producto of array) {
         let cardCont = document.createElement('div');
-        cardCont.innerHTML = `<img src="assets/img/WhiskyChivasExtra13_1000x1200.webp" class="card-img-top" alt="...">
+        cardCont.innerHTML = `<img src = ${producto.imagen} class="card-img-top">
         <div class="card-body">
             <h5 class="card-title">${producto.tipo}</h5>
             <h5 class="card-title">${producto.marca}</h5>
@@ -76,6 +76,41 @@ function agregarAlCarrito(id) {
     carritoProductos.push(productoAgregar);
     console.log(carritoProductos);
     return carritoProductos;
+}
+
+function llenarSelect(stock) {
+    let selecStock = document.querySelector('.selecStock');
+    for (let i = 1; i <= stock; i++) {
+        selecStock.options[i] = new Option(i,'valor:'+i); 
+    }
+}
+
+function mostrarProdCarrito(carritoProductos) {
+    
+    for (const prod of carritoProductos) {
+        let divcarrito = document.createElement('div');
+        divcarrito.innerHTML +=
+            `<div class="divcarrito">
+            <p>${prod.tipo} ${prod.marca}</p>
+            <p>Precio: $${prod.precioPublico()}</p>
+            <p id= cantidad${prod.id}>Cantidad: </p>
+            <select name="" class="selecStock" onFocus= "llenarSelect(${prod.stock})">
+            </select>
+            <i class="far fa-times-circle" id="botonEliminar${prod.id}"></i>
+            </div>`
+
+            document.querySelector('#domCar').appendChild(divcarrito);
+    }
+    
+    console.log(carritoProductos);
+    
+    // let btnEliminar = document.getElementById('botonEliminar${carritoProductos.id}');
+    // console.log(btnEliminar);
+    // btnEliminar.addEventListener('click',()=>{
+    //     console.log('boton eliminar');
+    //     document.querySelector('#domCar').removeChild(divcarrito);
+    // });
+
 }
 
 // ----------- CODIGO POP UP MAYOR DE EDAD ----------   
@@ -121,14 +156,14 @@ sesion.addEventListener('click', () => {
         let claveIngresado = document.querySelector('.txtclave').value;
         let usuario = 'admin';
         let clave = 'admin123';
-        if(usuarioIngresado == usuario && claveIngresado == clave){
+        if (usuarioIngresado == usuario && claveIngresado == clave) {
             divContSesion.innerHTML = '';
-            cargarStock();
+            location.href = "pages/sesion.html";
         }
         else {
             alert('Datos incorrectos');
             formulario.reset();
-    }
+        }
     });
 
     document.querySelector('#close').addEventListener('click', () => {
@@ -155,35 +190,19 @@ txtBuscar.addEventListener('input', () => {
     mostrarProductos(busqueda);
 });
 
-carrito.addEventListener('click',()=>{
+carrito.addEventListener('click', () => {
     console.log(carritoProductos);
-    let divcarrito = document.createElement('div');
-    divcarrito.innerHTML = `<div class="contS">
-    <div class="contForm">
-        <div class="contCarrito" >
-            <i class="far fa-times-circle" id="close"></i>
-            <h4>Productos agregados en el carrito</h4>
-        </div>
-    </div>
-</div>`;
-divContSesion.appendChild(divcarrito);
+    let contCar = document.querySelector('div.contCar');
+    console.log(contCar);
+    if(contCar.classList.contains('contCarNone')){
+        contCar.classList.remove('contCarNone');
+    } else {
+    contCar.classList.add('contCarNone');}
 
-    
     document.querySelector('#close').addEventListener('click', () => {
-        divContSesion.innerHTML = '';
+        contCar.classList.add('contCarNone');
     });
+    
+    mostrarProdCarrito(carritoProductos);
 });
 
-carrito.addEventListener('mouseover',()=>{
-    carrito.innerHTML =  "<h6>Mostrar carrito</h6>";
-});
-carrito.addEventListener('mouseout',()=>{
-    carrito.innerHTML = `<img class="imgNav" src="assets/img/carrito-de-compras.png" alt=""></img>`;
-});
-
-sesion.addEventListener('mouseover',()=>{
-    sesion.innerHTML ="<h6>Iniciar sesion</h6>";
-});
-sesion.addEventListener('mouseout',()=>{
-    sesion.innerHTML = `<img class="imgNav" src="assets/img/usuario.png" alt=""></img>`;
-});

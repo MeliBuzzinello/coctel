@@ -51,6 +51,7 @@ footer {
 }
 
 .footerContenedor {
+    background-color: #FAF0E6;
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -69,10 +70,11 @@ footer {
     display: flex;
     align-items: center;
     text-align: center;
+    padding-top: 20px;
 }
 
 .card-img-top {
-    width: 50%;
+    width: 100px;
 }
 
 /*-------------- VENTANA EMERGENTE----------*/
@@ -185,6 +187,8 @@ footer {
     align-items: center;
     width: 60%;
     max-width: 950px;
+    background: #fff;
+    height: 300px;
 }
 
 #close{
@@ -256,6 +260,7 @@ footer {
 
 /* ----------- CARRITO ---------------- */
 
+
 .contCarrito::before{
     content: '';
     position: absolute;
@@ -268,17 +273,12 @@ footer {
 }
 
 .contCarrito {
-    background: #fff;
-    flex-basis: 0;
-    flex-grow: 2;
-    height: 300px;
+    width: 90%;
+    /* flex-basis: 0;
+    flex-grow: 2; */
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
     position: relative;
-    text-align: center;
-   
+    text-align: end;
 }
 
 .contCarrito h4 {
@@ -307,4 +307,51 @@ footer {
     background: #FAD8CE;
     border-radius: 0px;
     margin-bottom: 20px;
+}
+
+.contCar {
+    z-index: 9999;
+    background: rgba(48, 48, 48, 0.5);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contCarNone {
+    display: none;
+}
+
+
+.contFormCar {
+    display: flex;
+    align-items: center;
+    width: 60%;
+    max-width: 950px;
+    background: #fff;
+    height: 300px;
+    flex-direction: column;
+}
+
+.divcarrito {
+    border-left: 5px solid #FAD8CE;
+    border-bottom-left-radius: 3px;
+    border-top-left-radius: 3px;
+    margin: 5px 0;
+    padding: 5px 10px;
+    display: flex;
+    justify-content: space-between;
+}
+.divcarrito:hover {
+    border-left: 5px solid #D1E9A3;
+}
+
+.far {
+    font-size: 25px;
+    color: hsl(12, 76%, 44%);
+    cursor: pointer;
 }
