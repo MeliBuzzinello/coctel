@@ -11,7 +11,9 @@ let contPopUp = document.getElementById('contPopUp');
 let divContSesion = document.getElementById('divContSesion');
 let carrito = document.getElementById('carrito');
 
-const carritoProductos = [];
+let carritoFiltrado = [];
+const carritoProductos = JSON.parse(localStorage.getItem("carrito")) || [];
+
 
 // ------------- FUNCIONES ------------
 
@@ -72,45 +74,71 @@ function mostrarProductos(array) {
 }
 
 function agregarAlCarrito(id) {
-    let productoAgregar = listaProductos.find(elemento => elemento.id == id)
+    let productoAgregar = listaProductos.find(elemento => elemento.id == id);
     carritoProductos.push(productoAgregar);
-    console.log(carritoProductos);
-    return carritoProductos;
+    carritoFiltrado = carritoProductos.filter((ele, indice) => carritoProductos.indexOf(ele) == indice);
+    console.log(carritoFiltrado);
+    const local = localStorage.setItem("carrito", JSON.stringify(carritoFiltrado));
+    return carritoFiltrado;
 }
 
 function llenarSelect(stock) {
     let selecStock = document.querySelector('.selecStock');
     for (let i = 1; i <= stock; i++) {
-        selecStock.options[i] = new Option(i,'valor:'+i); 
+        selecStock.options[i] = new Option(i, 'valor:' + i);
     }
 }
 
-function mostrarProdCarrito(carritoProductos) {
-    
-    for (const prod of carritoProductos) {
-        let divcarrito = document.createElement('div');
-        divcarrito.innerHTML +=
-            `<div class="divcarrito">
-            <p>${prod.tipo} ${prod.marca}</p>
-            <p>Precio: $${prod.precioPublico()}</p>
-            <p id= cantidad${prod.id}>Cantidad: </p>
-            <select name="" class="selecStock" onFocus= "llenarSelect(${prod.stock})">
-            </select>
-            <i class="far fa-times-circle" id="botonEliminar${prod.id}"></i>
-            </div>`
+function mostrarProdCarrito(carrito) {
+    const domCar = document.querySelector('#domCar');
+    if (domCar == " ") {
+        for (const prod of carrito) {
+            let divcarrito = document.createElement('div');
+            divcarrito.innerHTML +=
+                `<div class="divcarrito">
+                <p>${prod.tipo} ${prod.marca}</p>
+                <p>Precio: $${prod.precioPublico()}</p>
+                <p id= cantidad${prod.id}>Cantidad: </p>
+                <select name="" class="selecStock" onFocus= "llenarSelect(${prod.stock})">
+                </select>
+                <i class="far fa-times-circle" id="botonEliminar${prod.id}"></i>
+                </div>`
 
-            document.querySelector('#domCar').appendChild(divcarrito);
+            domCar.appendChild(divcarrito);
+            let btnEliminar = document.getElementById(`botonEliminar${prod.id}`);
+            console.log(btnEliminar);
+            btnEliminar.addEventListener('click', () => {
+                console.log('boton eliminar');
+                document.querySelector('#domCar').removeChild(divcarrito);
+            });
+        }
+    } else {
+        domCar.innerHTML = "";
+        for (const prod of carrito) {
+            let divcarrito = document.createElement('div');
+            divcarrito.innerHTML +=
+                `<div class="divcarrito">
+                <p>${prod.tipo} ${prod.marca}</p>
+                <p>Precio: $${prod.precioPublico}</p>
+                <p id= cantidad${prod.id}>Cantidad: </p>
+                <select name="" class="selecStock" onFocus= "llenarSelect(${prod.stock})">
+                </select>
+                <i class="far fa-times-circle" id="botonEliminar${prod.id}"></i>
+                </div>`
+
+            domCar.appendChild(divcarrito);
+            let btnEliminar = document.getElementById(`botonEliminar${prod.id}`);
+            console.log(btnEliminar);
+            btnEliminar.addEventListener('click', () => {
+                console.log('boton eliminar');
+                document.querySelector('#domCar').removeChild(divcarrito);
+            });
+
+        }
+
+
+
     }
-    
-    console.log(carritoProductos);
-    
-    // let btnEliminar = document.getElementById('botonEliminar${carritoProductos.id}');
-    // console.log(btnEliminar);
-    // btnEliminar.addEventListener('click',()=>{
-    //     console.log('boton eliminar');
-    //     document.querySelector('#domCar').removeChild(divcarrito);
-    // });
-
 }
 
 // ----------- CODIGO POP UP MAYOR DE EDAD ----------   
@@ -191,18 +219,18 @@ txtBuscar.addEventListener('input', () => {
 });
 
 carrito.addEventListener('click', () => {
-    console.log(carritoProductos);
+    console.log(carritoFiltrado);
     let contCar = document.querySelector('div.contCar');
     console.log(contCar);
-    if(contCar.classList.contains('contCarNone')){
+    if (contCar.classList.contains('contCarNone')) {
         contCar.classList.remove('contCarNone');
     } else {
-    contCar.classList.add('contCarNone');}
+        contCar.classList.add('contCarNone');
+    }
 
     document.querySelector('#close').addEventListener('click', () => {
         contCar.classList.add('contCarNone');
     });
-    
-    mostrarProdCarrito(carritoProductos);
-});
 
+    mostrarProdCarrito(carritoFiltrado);
+});
