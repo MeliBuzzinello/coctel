@@ -346,6 +346,9 @@ footer {
     display: flex;
     justify-content: space-between;
 }
+
+.divcarrito
+
 .divcarrito:hover {
     border-left: 5px solid #D1E9A3;
 }

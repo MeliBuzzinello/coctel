@@ -11,9 +11,18 @@ let contPopUp = document.getElementById('contPopUp');
 let divContSesion = document.getElementById('divContSesion');
 let carrito = document.getElementById('carrito');
 
-let carritoFiltrado = [];
-const carritoProductos = JSON.parse(localStorage.getItem("carrito")) || [];
+let carritoProductos = []
+//const carritoProductos = JSON.parse(localStorage.getItem("carrito")) || [];
 
+// ------------- CODIGO LOAD ----------
+
+//PREGUNTAR AL PROFE COMO SABER SI LS CARRITO TIENE DATOS
+// if (localStorage.length > 0) {
+//     storageaCarrito()
+// }
+
+// OPERADOR LOGICO AND, PARA USAR FUNCION StorageaCarrito si tengo algo en carrito
+JSON.parse(localStorage.getItem("carrito")) && storageaCarrito();
 
 // ------------- FUNCIONES ------------
 
@@ -52,6 +61,8 @@ function cargarStock() {
 function mostrarProductos(array) {
     document.querySelector('.cardCont').innerHTML = '';
     for (const producto of array) {
+        //DESESTUCTURACION DE OBJETOS
+        const {id, tipo, marca, stock, precioMayorista, descripcion, imagen, } = Producto;
         let cardCont = document.createElement('div');
         cardCont.innerHTML = `<img src = ${producto.imagen} class="card-img-top">
         <div class="card-body">
@@ -66,79 +77,67 @@ function mostrarProductos(array) {
         document.querySelector('.cardCont').append(cardCont);
 
         let btnAgregar = document.getElementById(`btnAgregar${producto.id}`)
-        // console.log(btnAgregar)
+        // Boton agregar al carrito
         btnAgregar.addEventListener('click', () => {
-            agregarAlCarrito(producto.id)
-        })
+        if (producto.seleccionado) {alert('su producto ya esta en el carrito')}
+        else {agregarAlCarrito(producto.id); 
+            producto.seleccionado = true};
+    })
     };
 }
 
 function agregarAlCarrito(id) {
     let productoAgregar = listaProductos.find(elemento => elemento.id == id);
     carritoProductos.push(productoAgregar);
-    carritoFiltrado = carritoProductos.filter((ele, indice) => carritoProductos.indexOf(ele) == indice);
-    console.log(carritoFiltrado);
-    const local = localStorage.setItem("carrito", JSON.stringify(carritoFiltrado));
-    return carritoFiltrado;
+    localStorage.setItem("carrito", JSON.stringify(carritoProductos));
+    return carritoProductos;
+}
+
+function mostrarProdCarrito() {
+    const domCar = document.querySelector('#domCar');
+    domCar.innerHTML = "";
+    for (const domProd of carritoProductos) {
+        let divcar = document.createElement('div');
+        divcar.innerHTML +=
+            `<div class="divcarrito" id="div${domProd.id}">
+                <p>${domProd.tipo} ${domProd.marca}</p>
+                <p>Precio: $${domProd.precioPublico()}</p>
+                <p id= cantidad${domProd.id}>Cantidad: </p>
+                <select name="" id="selecStock${domProd.id}" onFocus= "llenarSelect(${domProd.stock})">
+                </select>
+                <i class="far fa-times-circle" id="botonEliminar${domProd.id}"></i>
+                </div>`
+        domCar.appendChild(divcar);
+
+        let btnEliminar = document.getElementById(`botonEliminar${domProd.id}`);
+        btnEliminar.addEventListener('click', () => {
+            carritoProductos = carritoProductos.filter(elem => elem.id != domProd.id);
+            localStorage.setItem('carrito', JSON.stringify(carritoProductos));
+            domProd.seleccionado = false;
+            domCar.removeChild(divcar);
+        });
+    }  
 }
 
 function llenarSelect(stock) {
-    let selecStock = document.querySelector('.selecStock');
+    let select = document.querySelector(`#selecStock${domProd.id}`);
     for (let i = 1; i <= stock; i++) {
-        selecStock.options[i] = new Option(i, 'valor:' + i);
+        select.options[i] = new Option(i, 'valor:' + i);
     }
 }
 
-function mostrarProdCarrito(carrito) {
-    const domCar = document.querySelector('#domCar');
-    if (domCar == " ") {
-        for (const prod of carrito) {
-            let divcarrito = document.createElement('div');
-            divcarrito.innerHTML +=
-                `<div class="divcarrito">
-                <p>${prod.tipo} ${prod.marca}</p>
-                <p>Precio: $${prod.precioPublico()}</p>
-                <p id= cantidad${prod.id}>Cantidad: </p>
-                <select name="" class="selecStock" onFocus= "llenarSelect(${prod.stock})">
-                </select>
-                <i class="far fa-times-circle" id="botonEliminar${prod.id}"></i>
-                </div>`
-
-            domCar.appendChild(divcarrito);
-            let btnEliminar = document.getElementById(`botonEliminar${prod.id}`);
-            console.log(btnEliminar);
-            btnEliminar.addEventListener('click', () => {
-                console.log('boton eliminar');
-                document.querySelector('#domCar').removeChild(divcarrito);
-            });
-        }
-    } else {
-        domCar.innerHTML = "";
-        for (const prod of carrito) {
-            let divcarrito = document.createElement('div');
-            divcarrito.innerHTML +=
-                `<div class="divcarrito">
-                <p>${prod.tipo} ${prod.marca}</p>
-                <p>Precio: $${prod.precioPublico}</p>
-                <p id= cantidad${prod.id}>Cantidad: </p>
-                <select name="" class="selecStock" onFocus= "llenarSelect(${prod.stock})">
-                </select>
-                <i class="far fa-times-circle" id="botonEliminar${prod.id}"></i>
-                </div>`
-
-            domCar.appendChild(divcarrito);
-            let btnEliminar = document.getElementById(`botonEliminar${prod.id}`);
-            console.log(btnEliminar);
-            btnEliminar.addEventListener('click', () => {
-                console.log('boton eliminar');
-                document.querySelector('#domCar').removeChild(divcarrito);
-            });
-
-        }
 
 
-
-    }
+// esta funcion es si tengo productos en carrito
+function storageaCarrito() {
+    let arrayLocalStorage = JSON.parse(localStorage.getItem("carrito"));
+    // con el map recorremos objetos y podemos acceder a los valores del atributo que necesitemos.
+    arrayLocalStorage.map(({ id }) => {
+        let idProductoLS = `${id}`;
+        let productoAgregar = listaProductos.find(elemento => elemento.id == idProductoLS);
+        productoAgregar.seleccionado = true;
+        carritoProductos.push(productoAgregar);
+    })
 }
 
 // ----------- CODIGO POP UP MAYOR DE EDAD ----------   
@@ -219,18 +218,13 @@ txtBuscar.addEventListener('input', () => {
 });
 
 carrito.addEventListener('click', () => {
-    console.log(carritoFiltrado);
     let contCar = document.querySelector('div.contCar');
-    console.log(contCar);
-    if (contCar.classList.contains('contCarNone')) {
-        contCar.classList.remove('contCarNone');
-    } else {
-        contCar.classList.add('contCarNone');
-    }
+    // aca utilizamos un operador ternario
+    contCar.classList.contains('contCarNone') ? contCar.classList.remove('contCarNone') : contCar.classList.add('contCarNone');
 
     document.querySelector('#close').addEventListener('click', () => {
         contCar.classList.add('contCarNone');
     });
 
-    mostrarProdCarrito(carritoFiltrado);
+    mostrarProdCarrito();
 });

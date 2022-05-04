@@ -8,9 +8,11 @@ class Producto {
         this.descripcion = descripcion;
         this.imagen = imagen;
         this.cantidad = 1;
+        this.seleccionado = false;
     }
     precioPublico(){
-        return this.precioMayorista + (this.precioMayorista * 50/100);
+       let precioalPublico = this.precioMayorista + (this.precioMayorista * 50/100);
+       return precioalPublico; 
     }
 }
 
