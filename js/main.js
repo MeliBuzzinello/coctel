@@ -10,11 +10,17 @@ let navlistaprecios = document.getElementById('navlistaprecios');
 let contPopUp = document.getElementById('contPopUp');
 let divContSesion = document.getElementById('divContSesion');
 let carrito = document.getElementById('carrito');
+let btnVaciar = document.getElementById('btnVaciar');
+
 
 let carritoProductos = []
 //const carritoProductos = JSON.parse(localStorage.getItem("carrito")) || [];
 
+let { id, tipo, marca, stock, precioMayorista, descripcion, imagen, cantidad, seleccionado } = carritoProductos;
+
 // ------------- CODIGO LOAD ----------
+
+mostrarProductos(listaProductos);
 
 //PREGUNTAR AL PROFE COMO SABER SI LS CARRITO TIENE DATOS
 // if (localStorage.length > 0) {
@@ -61,8 +67,6 @@ function cargarStock() {
 function mostrarProductos(array) {
     document.querySelector('.cardCont').innerHTML = '';
     for (const producto of array) {
-        //DESESTUCTURACION DE OBJETOS
-        const {id, tipo, marca, stock, precioMayorista, descripcion, imagen, } = Producto;
         let cardCont = document.createElement('div');
         cardCont.innerHTML = `<img src = ${producto.imagen} class="card-img-top">
         <div class="card-body">
@@ -79,10 +83,13 @@ function mostrarProductos(array) {
         let btnAgregar = document.getElementById(`btnAgregar${producto.id}`)
         // Boton agregar al carrito
         btnAgregar.addEventListener('click', () => {
-        if (producto.seleccionado) {alert('su producto ya esta en el carrito')}
-        else {agregarAlCarrito(producto.id); 
-            producto.seleccionado = true};
-    })
+            if (producto.seleccionado) { swal ( " Su producto ya esta en el carrito " ) ; }
+            else {
+                agregarAlCarrito(producto.id);
+                producto.seleccionado = true
+                document.querySelector('#carrito').textContent = carritoProductos.length;
+            };
+        })
     };
 }
 
@@ -96,37 +103,73 @@ function agregarAlCarrito(id) {
 function mostrarProdCarrito() {
     const domCar = document.querySelector('#domCar');
     domCar.innerHTML = "";
-    for (const domProd of carritoProductos) {
+    for (const prod of carritoProductos) {
         let divcar = document.createElement('div');
         divcar.innerHTML +=
-            `<div class="divcarrito" id="div${domProd.id}">
-                <p>${domProd.tipo} ${domProd.marca}</p>
-                <p>Precio: $${domProd.precioPublico()}</p>
-                <p id= cantidad${domProd.id}>Cantidad: </p>
-                <select name="" id="selecStock${domProd.id}" onFocus= "llenarSelect(${domProd.stock})">
+            `<div class="divcarrito" id="div${prod.id}">
+                <p>${prod.tipo} ${prod.marca}</p>
+                <p>Precio: $${prod.precioPublico()}</p> 
+                <p id= cantidad${prod.id}>Cantidad: </p>
+                <select name="" id="selecStock${prod.id}" onFocus="llenarSelect(${prod.stock},${prod.id})">
                 </select>
-                <i class="far fa-times-circle" id="botonEliminar${domProd.id}"></i>
+                <i class="far fa-times-circle" id="botonEliminar${prod.id}"></i>
                 </div>`
         domCar.appendChild(divcar);
 
-        let btnEliminar = document.getElementById(`botonEliminar${domProd.id}`);
+        let btnEliminar = document.getElementById(`botonEliminar${prod.id}`);
         btnEliminar.addEventListener('click', () => {
-            carritoProductos = carritoProductos.filter(elem => elem.id != domProd.id);
+            carritoProductos = carritoProductos.filter(elem => elem.id != prod.id);
+            total();
             localStorage.setItem('carrito', JSON.stringify(carritoProductos));
-            domProd.seleccionado = false;
+            prod.seleccionado = false;
             domCar.removeChild(divcar);
+            document.querySelector('#carrito').textContent = carritoProductos.length;
         });
-    }  
+
+        let select = document.getElementById(`selecStock${prod.id}`);
+        select.addEventListener('change', () => {
+            let valorSelect = select.value || 1;
+            carritoProductos.map((e) => {
+                if (e.id == prod.id) {
+                    e.cantidad = valorSelect;
+                }
+            })
+            localStorage.setItem('carrito', JSON.stringify(carritoProductos));
+            total();
+        })
+    }
+    btnVaciar.addEventListener('click', () => {
+        vaciarCarrito()
+        document.querySelector('#carrito').textContent = carritoProductos.length;
+    });
+    total();
 }
 
-function llenarSelect(stock) {
-    let select = document.querySelector(`#selecStock${domProd.id}`);
+function vaciarCarrito() {
+    for (const prod of carritoProductos) {
+        prod.seleccionado = false;
+    }
+    domCar.innerHTML = "";
+    carritoProductos = [];
+    localStorage.setItem('carrito', JSON.stringify(carritoProductos));
+    total();
+}
+
+function llenarSelect(stock, id) {
+    let select = document.getElementById(`selecStock${id}`);
     for (let i = 1; i <= stock; i++) {
-        select.options[i] = new Option(i, 'valor:' + i);
+        select.options[i] = new Option(i, i);
     }
 }
 
-
+function total() {
+    let total = 0;
+    for (const prod of carritoProductos) {
+        let precio = parseFloat(prod.precioPublico());
+        total += precio * prod.cantidad;
+    }
+    document.querySelector('#txtTotal').innerText = total;
+}
 
 // esta funcion es si tengo productos en carrito
 function storageaCarrito() {
@@ -138,6 +181,12 @@ function storageaCarrito() {
         productoAgregar.seleccionado = true;
         carritoProductos.push(productoAgregar);
     })
+    total();
+}
+
+function cantCarrito() {
+    let cantidad = carritoProductos.length;
+    return cantidad;
 }
 
 // ----------- CODIGO POP UP MAYOR DE EDAD ----------   
@@ -157,6 +206,15 @@ function adios() {
 }
 function hola() {
     contPopUp.removeAttribute('class', 'show');
+}
+
+// ------------- CODIGO LIBRERIA ELEVATOR --------------
+
+window.onload = function() {
+    var elevator = new Elevator({
+      element: document.querySelector('#parriba'),
+    });
+
 }
 
 // ------------- EVENTOS --------------
@@ -188,7 +246,7 @@ sesion.addEventListener('click', () => {
             location.href = "pages/sesion.html";
         }
         else {
-            alert('Datos incorrectos');
+            swal ( " Datos incorrectos " ) ;
             formulario.reset();
         }
     });
@@ -228,3 +286,4 @@ carrito.addEventListener('click', () => {
 
     mostrarProdCarrito();
 });
+

@@ -16,9 +16,30 @@
     display: flex;
 }
 
-.imgNav {
-   width: 35px;
+.navbar-nav {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
 }
+
+.navindex {
+    width: 100%;
+    position: fixed;
+    z-index: 9999999;
+}
+
+@media only screen and (max-width: 900px) and (min-width: 5px)  {  
+  .navbar {
+    display: flex;
+    flex-wrap: nowrap;
+  }
+  .navbar-nav {
+    display: flex;
+    flex-direction: row;
+  }
+} 
+
+
 
 /* --------------- FOOTER----------- */
 
@@ -77,6 +98,55 @@ footer {
     width: 100px;
 }
 
+/*--------------MAIN // CUERPO----------*/
+
+.carousel {
+    margin-top: 100px;
+}
+
+.buscadores {
+    display: flex;
+    align-items: center;
+    padding-top: 30px;
+    width: 100%;
+    justify-content: flex-end;
+}
+
+.subir {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 31px;
+}
+
+.icono {
+   font-size: 50px;
+   color: #fac9ea;
+   margin: 20px;
+}
+
+.fa-cart-shopping {
+    font-size: 40px;
+    color: #D1E9A3;
+    margin: 20px; 
+}
+
+.fa-circle-user {
+    font-size: 40px;
+    color: #fdcd9c;
+    margin: 20px; 
+}
+
+.fa-martini-glass-citrus {
+    font-size: 40px;
+    color: #fac9ea;
+    margin: 20px; 
+}
+
+.nav-link {
+    padding: 0;
+}
+
 /*-------------- VENTANA EMERGENTE----------*/
 
 #contPopUp {
@@ -100,7 +170,7 @@ footer {
     max-width: 950px;
 }
 
-.popValidarEdad::before{
+.popValidarEdad::before {
     content: '';
     position: absolute;
     top: 0;
@@ -111,7 +181,7 @@ footer {
     z-index: -1;
 }
 
-.popValidarEdad{
+.popValidarEdad {
     background: #fff;
     flex-basis: 0;
     flex-grow: 2;
@@ -122,7 +192,7 @@ footer {
     align-items: center;
     position: relative;
     text-align: center;
-   
+
 }
 
 .popValidarEdad h3 {
@@ -163,7 +233,7 @@ footer {
     background-color: #D1E9A3;
 }
 
-#contPopUp.show{
+#contPopUp.show {
     visibility: visible;
 }
 
@@ -191,7 +261,7 @@ footer {
     height: 300px;
 }
 
-#close{
+#close {
     position: absolute;
     top: 20px;
     right: 25px;
@@ -201,7 +271,7 @@ footer {
 }
 
 
-.formSesion::before{
+.formSesion::before {
     content: '';
     position: absolute;
     top: 0;
@@ -223,7 +293,7 @@ footer {
     align-items: center;
     position: relative;
     text-align: center;
-   
+
 }
 
 .formSesion h4 {
@@ -261,7 +331,7 @@ footer {
 /* ----------- CARRITO ---------------- */
 
 
-.contCarrito::before{
+.contCarrito::before {
     content: '';
     position: absolute;
     top: 0;
@@ -333,8 +403,10 @@ footer {
     width: 60%;
     max-width: 950px;
     background: #fff;
-    height: 300px;
+    height: auto;
+    min-height: 300px;
     flex-direction: column;
+    justify-content: space-between;
 }
 
 .divcarrito {
@@ -347,9 +419,7 @@ footer {
     justify-content: space-between;
 }
 
-.divcarrito
-
-.divcarrito:hover {
+.divcarrito .divcarrito:hover {
     border-left: 5px solid #D1E9A3;
 }
 
@@ -358,3 +428,109 @@ footer {
     color: hsl(12, 76%, 44%);
     cursor: pointer;
 }
+
+.btnVaciar {
+    width: 80%;
+    padding: 15px;
+    border: none;
+    background: #FAD8CE;
+    border-radius: 0px;
+    margin-bottom: 20px;
+
+}
+
+.btnVaciar:hover {
+    background-color: #D1E9A3;
+}
+
+.divbtnVaciar {
+    width: 100%;
+    text-align: center;
+}
+
+.total {
+    display: flex;
+}
+
+/* -----------------  API -------------*/
+.iframe {
+    object-fit: contain;
+    left:0;
+    position:absolute;
+    top:0;
+    width:100%;
+} 
+
+
+/* body {
+   /* background-color: black; 
+} */
+
+.contenedorTexto {
+    padding-top: 81px;
+}
+
+.contenedor {
+    width: 100%;
+}
+
+h2 {
+   font-size: 30px;
+   text-align: center;
+}
+
+.conteBuscador {
+    margin: 42px 0px;
+    display: flex;
+    justify-content: center;
+}
+
+.button {
+    padding: 15px;
+    border: none;
+    background: #FAD8CE;
+    border-radius: 0px;
+    margin-bottom: 20px;
+}
+
+#form {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+
+#resultado {
+    margin: 60px auto;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap
+}
+
+#divContenedor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #858585cc;
+    max-width: 30%;
+    padding: 40px;
+    margin-bottom: 20px;
+    box-shadow: 2px 6px 3px 3px rgb(0 0 0 / 30%)
+}
+
+.imagen {
+    width: 200px;
+}
+
+.resultadoTitulo {
+    text-align: center;
+    text-transform: uppercase;
+    padding-bottom: 20px;
+
+} 
+
+.ingredientes {
+    padding: 36px 0px;
+    font-weight: bold;
+}
+ 
