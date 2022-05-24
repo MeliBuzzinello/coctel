@@ -11,21 +11,13 @@ let contPopUp = document.getElementById('contPopUp');
 let divContSesion = document.getElementById('divContSesion');
 let carrito = document.getElementById('carrito');
 let btnVaciar = document.getElementById('btnVaciar');
-
+let btnComprar = document.getElementById('btnComprar');
 
 let carritoProductos = []
-//const carritoProductos = JSON.parse(localStorage.getItem("carrito")) || [];
-
-let { id, tipo, marca, stock, precioMayorista, descripcion, imagen, cantidad, seleccionado } = carritoProductos;
 
 // ------------- CODIGO LOAD ----------
 
 mostrarProductos(listaProductos);
-
-//PREGUNTAR AL PROFE COMO SABER SI LS CARRITO TIENE DATOS
-// if (localStorage.length > 0) {
-//     storageaCarrito()
-// }
 
 // OPERADOR LOGICO AND, PARA USAR FUNCION StorageaCarrito si tengo algo en carrito
 JSON.parse(localStorage.getItem("carrito")) && storageaCarrito();
@@ -117,7 +109,7 @@ function mostrarProdCarrito() {
         domCar.appendChild(divcar);
 
         let btnEliminar = document.getElementById(`botonEliminar${prod.id}`);
-        btnEliminar.addEventListener('click', () => {
+        btnEliminar.addEventListener('click', ()=> {
             carritoProductos = carritoProductos.filter(elem => elem.id != prod.id);
             total();
             localStorage.setItem('carrito', JSON.stringify(carritoProductos));
@@ -142,7 +134,17 @@ function mostrarProdCarrito() {
         vaciarCarrito()
         document.querySelector('#carrito').textContent = carritoProductos.length;
     });
+
+    btnComprar.addEventListener('click', comprar);
     total();
+}
+
+const comprar = () => {
+    if(carritoProductos.length != 0){
+    vaciarCarrito()
+    document.querySelector('#carrito').textContent = carritoProductos.length;
+    swal(" Proximamente...");}
+    else{ swal(" No hay productos seleccionados ")};
 }
 
 function vaciarCarrito() {
@@ -174,7 +176,6 @@ function total() {
 // esta funcion es si tengo productos en carrito
 function storageaCarrito() {
     let arrayLocalStorage = JSON.parse(localStorage.getItem("carrito"));
-    // con el map recorremos objetos y podemos acceder a los valores del atributo que necesitemos.
     arrayLocalStorage.map(({ id }) => {
         let idProductoLS = `${id}`;
         let productoAgregar = listaProductos.find(elemento => elemento.id == idProductoLS);
@@ -182,11 +183,23 @@ function storageaCarrito() {
         carritoProductos.push(productoAgregar);
     })
     total();
+    document.querySelector('#carrito').textContent = carritoProductos.length;
 }
 
-function cantCarrito() {
-    let cantidad = carritoProductos.length;
-    return cantidad;
+const sesionEnviar = (e) => {
+    e.preventDefault();
+        let usuarioIngresado = document.querySelector('.txtusuario').value;
+        let claveIngresado = document.querySelector('.txtclave').value;
+        let usuario = 'admin';
+        let clave = 'admin123';
+        if (usuarioIngresado == usuario && claveIngresado == clave) {
+            divContSesion.innerHTML = '';
+            swal ( " Bienvenido administrador. Proximamente podras cargar tu stock de productos " ) ;
+        }
+        else {
+            swal ( " Datos incorrectos " ) ;
+            formulario.reset();
+        }
 }
 
 // ----------- CODIGO POP UP MAYOR DE EDAD ----------   
@@ -195,18 +208,23 @@ function popUps() {
     contPopUp.className = 'show';
     init();
 }
-setTimeout(popUps, 1000);
+//setTimeout(popUps, 1000);
 
 function init() {
     document.querySelector(".popUp .menor").addEventListener("click", adios);
     document.querySelector(".popUp .mayor").addEventListener("click", hola);
 }
+
 function adios() {
     location.href = "assets/video/conductor.mp4";
+    localStorage.setItem('sesion', 'menor');
 }
 function hola() {
     contPopUp.removeAttribute('class', 'show');
+    localStorage.setItem('sesion', 'mayor');
 }
+
+localStorage.getItem('sesion') || setTimeout(popUps, 1000);
 
 // ------------- CODIGO LIBRERIA ELEVATOR --------------
 
@@ -214,7 +232,6 @@ window.onload = function() {
     var elevator = new Elevator({
       element: document.querySelector('#parriba'),
     });
-
 }
 
 // ------------- EVENTOS --------------
@@ -235,21 +252,7 @@ sesion.addEventListener('click', () => {
     divContSesion.appendChild(divSesion);
     let btnEnviar = document.getElementById('btnEnviar');
 
-    btnEnviar.addEventListener('click', (e) => {
-        e.preventDefault();
-        let usuarioIngresado = document.querySelector('.txtusuario').value;
-        let claveIngresado = document.querySelector('.txtclave').value;
-        let usuario = 'admin';
-        let clave = 'admin123';
-        if (usuarioIngresado == usuario && claveIngresado == clave) {
-            divContSesion.innerHTML = '';
-            location.href = "pages/sesion.html";
-        }
-        else {
-            swal ( " Datos incorrectos " ) ;
-            formulario.reset();
-        }
-    });
+    btnEnviar.addEventListener('click', sesionEnviar);
 
     document.querySelector('#close').addEventListener('click', () => {
         divContSesion.innerHTML = '';
@@ -277,7 +280,6 @@ txtBuscar.addEventListener('input', () => {
 
 carrito.addEventListener('click', () => {
     let contCar = document.querySelector('div.contCar');
-    // aca utilizamos un operador ternario
     contCar.classList.contains('contCarNone') ? contCar.classList.remove('contCarNone') : contCar.classList.add('contCarNone');
 
     document.querySelector('#close').addEventListener('click', () => {

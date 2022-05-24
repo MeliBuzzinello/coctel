@@ -25,7 +25,7 @@
 .navindex {
     width: 100%;
     position: fixed;
-    z-index: 9999999;
+    z-index: 2;
 }
 
 @media only screen and (max-width: 900px) and (min-width: 5px)  {  
@@ -37,7 +37,11 @@
     display: flex;
     flex-direction: row;
   }
+  .logo {
+    height: auto;
+    width: 80%;
 } 
+}
 
 
 
@@ -95,7 +99,8 @@ footer {
 }
 
 .card-img-top {
-    width: 100px;
+    width: auto;
+    height: 150px;
 }
 
 /*--------------MAIN // CUERPO----------*/
@@ -110,6 +115,10 @@ footer {
     padding-top: 30px;
     width: 100%;
     justify-content: flex-end;
+}
+
+#navbarDropdown {
+    margin-right: 20px;
 }
 
 .subir {
@@ -410,17 +419,17 @@ footer {
 }
 
 .divcarrito {
-    border-left: 5px solid #FAD8CE;
-    border-bottom-left-radius: 3px;
-    border-top-left-radius: 3px;
+    border-left: 13px solid #D1E9A3; 
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
     margin: 5px 0;
     padding: 5px 10px;
     display: flex;
     justify-content: space-between;
 }
 
-.divcarrito .divcarrito:hover {
-    border-left: 5px solid #D1E9A3;
+.divcarrito:hover {
+    border-left: 13px solid #FAD8CE;
 }
 
 .far {
@@ -436,7 +445,10 @@ footer {
     background: #FAD8CE;
     border-radius: 0px;
     margin-bottom: 20px;
+}
 
+#domCar {
+    width: 80%;
 }
 
 .btnVaciar:hover {
@@ -461,10 +473,10 @@ footer {
     width:100%;
 } 
 
-
-/* body {
-   /* background-color: black; 
-} */
+.contenedorBuscador {
+   
+    background-image: url("../assets/img/CoctelFondo.png");
+}
 
 .contenedorTexto {
     padding-top: 81px;
@@ -477,6 +489,7 @@ footer {
 h2 {
    font-size: 30px;
    text-align: center;
+   color: #FAF0E6;
 }
 
 .conteBuscador {
@@ -490,18 +503,24 @@ h2 {
     border: none;
     background: #FAD8CE;
     border-radius: 0px;
-    margin-bottom: 20px;
+    margin: 15px 0;
+}
+
+.button:hover {
+    background-color: #D1E9A3;
 }
 
 #form {
+    width: 50%;
     display: flex;
     flex-direction: column;
     padding: 20px;
+    text-align: center;
 }
 
 
 #resultado {
-    margin: 60px auto;
+    margin: 60px 20px;
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap
@@ -523,7 +542,6 @@ h2 {
 }
 
 .resultadoTitulo {
-    text-align: center;
     text-transform: uppercase;
     padding-bottom: 20px;
 
@@ -534,3 +552,12 @@ h2 {
     font-weight: bold;
 }
  
+.txtBusqueda {
+    color: #fff;
+}
+
+.divCar {
+    text-align: center;
+    padding: 30px;
+    box-shadow: 2px 2px 2px 1px rgb(0 0 0 / 20%);
+}

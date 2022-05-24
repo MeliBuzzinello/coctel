@@ -31,9 +31,7 @@ function mostrarBebidas(bebidas = []) {
     bebidas.forEach(bebida => {
         console.log(bebida);
         const divContenedor = document.createElement('div');
-        //divContenedor.setAttribute('id','divContenedor');
-        divContenedor.className += 'col-lg-4 col-xs-12';
-        //divContenedor.id = 'divContenedor';
+        divContenedor.className += 'col-lg-4 col-xs-12 divCar';
 
         const titulo = document.createElement('h3');
         titulo.className = 'resultadoTitulo';
@@ -58,9 +56,6 @@ function mostrarBebidas(bebidas = []) {
         divContenedor.appendChild(imagen);
         divContenedor.appendChild(ingredientes);
         divContenedor.appendChild(receta);
-
-        // const divPrueba = document.createElement('div');
-        // divPrueba.innerHTML = `<p>${bebida.strDrink}</p>`
 
         divResultado.appendChild(divContenedor);
     })
