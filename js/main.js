@@ -194,7 +194,7 @@ const sesionEnviar = (e) => {
         let clave = 'admin123';
         if (usuarioIngresado == usuario && claveIngresado == clave) {
             divContSesion.innerHTML = '';
-            swal ( " Bienvenido administrador. Proximamente podras cargar tu stock de productos " ) ;
+            swal ( " Bienvenido administrador" , " Proximamente podras cargar tu stock de productos " ) ;
         }
         else {
             swal ( " Datos incorrectos " ) ;
