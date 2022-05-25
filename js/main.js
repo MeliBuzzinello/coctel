@@ -102,11 +102,12 @@ function mostrarProdCarrito() {
                 <p>${prod.tipo} ${prod.marca}</p>
                 <p>Precio: $${prod.precioPublico()}</p> 
                 <p id= cantidad${prod.id}>Cantidad: </p>
-                <select name="" id="selecStock${prod.id}" onFocus="llenarSelect(${prod.stock},${prod.id})">
-                </select>
+                <select name="" id="selecStock${prod.id}"></select>
                 <i class="far fa-times-circle" id="botonEliminar${prod.id}"></i>
                 </div>`
         domCar.appendChild(divcar);
+
+        llenarSelect(prod.stock,prod.id,prod.cantidad || 1);
 
         let btnEliminar = document.getElementById(`botonEliminar${prod.id}`);
         btnEliminar.addEventListener('click', ()=> {
@@ -119,6 +120,8 @@ function mostrarProdCarrito() {
         });
 
         let select = document.getElementById(`selecStock${prod.id}`);
+
+      
         select.addEventListener('change', () => {
             let valorSelect = select.value || 1;
             carritoProductos.map((e) => {
@@ -157,11 +160,12 @@ function vaciarCarrito() {
     total();
 }
 
-function llenarSelect(stock, id) {
+function llenarSelect(stock, id, cant) {
     let select = document.getElementById(`selecStock${id}`);
     for (let i = 1; i <= stock; i++) {
         select.options[i] = new Option(i, i);
     }
+    select.value = cant;
 }
 
 function total() {

@@ -28,7 +28,7 @@
     z-index: 2;
 }
 
-@media only screen and (max-width: 900px) and (min-width: 5px)  {  
+@media only screen and (max-width: 990px) and (min-width: 5px)  {  
   .navbar {
     display: flex;
     flex-wrap: nowrap;
@@ -81,7 +81,6 @@ footer {
     flex-direction: column;
     text-align: center;
     padding: 20px;
-
 }
 
 /*------- CARD--------- */
@@ -357,7 +356,7 @@ footer {
     flex-grow: 2; */
     display: flex;
     position: relative;
-    text-align: end;
+    text-align: center;
 }
 
 .contCarrito h4 {
@@ -366,7 +365,7 @@ footer {
     color: #1F4068;
     margin-bottom: 0px;
     margin-top: 34px;
-    width: 80%;
+    width: 100%;
 
 }
 
